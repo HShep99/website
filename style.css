@@ -1,0 +1,145 @@
+:root { 
+    --primary: #002D62; 
+    --accent: #FF6600; 
+    --light: #f8f9fa; 
+    --dark: #1a1a1a; 
+}
+
+body { 
+    font-family: 'Open Sans', sans-serif; 
+    margin: 0; 
+    line-height: 1.6; 
+    color: var(--dark); 
+}
+
+/* Header & Nav */
+header { 
+    background: white; 
+    padding: 15px 8%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+}
+
+.logo { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+.logo span { color: var(--accent); }
+
+/* Hero */
+.hero { 
+    background: linear-gradient(rgba(0, 45, 98, 0.7), rgba(0, 45, 98, 0.7)), 
+                url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover; 
+    background-position: center;
+    height: 60vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    color: white; 
+    text-align: center; 
+    padding: 0 5%;
+}
+
+.hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3.5rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+
+/* Buttons */
+.cta-btn { 
+    background-color: var(--accent) !important; 
+    color: #ffffff !important; 
+    padding: 12px 30px; 
+    text-decoration: none !important; 
+    font-weight: bold; 
+    border-radius: 4px; 
+    display: inline-block; 
+    text-transform: uppercase;
+    transition: 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+.cta-btn:hover { 
+    background-color: #e65c00 !important; 
+    transform: translateY(-3px); 
+    box-shadow: 0 4px 15px rgba(255, 102, 0, 0.4); 
+}
+
+/* Projects */
+.section-title { text-align: center; margin-top: 60px; font-family: 'Montserrat', sans-serif; font-size: 2rem; color: var(--primary); }
+
+.services-container { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px; 
+    padding: 40px 8%; 
+}
+
+.card { 
+    background: white; 
+    border-radius: 10px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    border-top: 5px solid var(--accent); 
+    text-align: center; 
+    overflow: hidden;
+    padding-bottom: 30px;
+}
+
+.card h3 { color: var(--primary); margin: 20px 0 10px; padding: 0 20px; }
+.card p { padding: 0 20px; color: #666; }
+
+/* Gallery Logic */
+.service-img.main { width: 100%; height: 250px; object-fit: cover; transition: opacity 0.3s ease-in-out; }
+
+.thumb-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    padding: 10px; 
+}
+
+.thumb { width: 100%; height: 80px; object-fit: cover; cursor: pointer; transition: 0.3s; border-radius: 4px; }
+.thumb:hover { filter: brightness(1.1); transform: scale(1.02); }
+.active-thumb { display: none !important; }
+
+/* Contact Section */
+.contact-section { background: var(--light); padding: 80px 8%; text-align: center; }
+.contact-container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+.quote-form { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+
+.quote-form input, .quote-form select, .quote-form textarea { padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; font-family: inherit; }
+
+/* Textbox Lock */
+.quote-form textarea { resize: vertical; min-height: 120px; } 
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+/* Contact Button */
+.contact-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--accent);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+.contact-btn:hover { transform: translateY(-5px); }
+
+/* Footer */
+footer { background: var(--dark); color: #ccc; padding: 40px 8%; text-align: center; }
+.back-to-top { display: block; margin-top: 20px; color: var(--accent); text-decoration: none; font-weight: bold; }
+
+@media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.2rem; }
+}

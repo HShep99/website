@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taylor Group Construction | Quality You Can Trust</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body id="top">
+
+<a href="tel:01234567890" id="dual-contact-btn" class="contact-btn">
+    <span id="contact-text">📞 Call for a Quote</span>
+</a>
+
+<header>
+    <a href="#top" class="logo" style="text-decoration: none;">TAYLOR<span>GROUP</span></a>
+    <nav>
+        <a href="#services" style="margin-right: 20px; text-decoration: none; color: #002D62; font-weight: 600;">Services</a>
+        <a href="#quote" class="cta-btn">Get a Quote</a>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <h1>Quality You Can Trust.</h1>
+        <p style="font-size: 1.2rem; max-width: 600px; margin-bottom: 30px;">
+            From residential remodels to commercial developments, we bring precision and integrity to every square foot.
+        </p>
+        <a href="#services" class="cta-btn">View Our Services</a>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title">Our Featured Projects</h2>
+        <div class="services-container">
+            <div class="card">
+                <div class="card-gallery">
+                    <img src="images/custom-home-builds-1.png" id="main-home" alt="Custom Home" class="service-img main">
+                    <div class="thumb-grid">
+                        <img src="images/custom-home-builds-1.png" class="thumb active-thumb" onclick="fadeSwap('main-home', this)">
+                        <img src="images/custom-home-builds-2.png" class="thumb" onclick="fadeSwap('main-home', this)">
+                        <img src="images/custom-home-builds-3.png" class="thumb" onclick="fadeSwap('main-home', this)">
+                    </div>
+                </div>
+                <h3>Custom Home Builds</h3>
+                <p>From modern estates to classic timber frames.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-gallery">
+                    <img src="images/kitchen-bath-3.png" id="main-kitchen" alt="Kitchen" class="service-img main">
+                    <div class="thumb-grid">
+                        <img src="images/kitchen-bath-3.png" class="thumb active-thumb" onclick="fadeSwap('main-kitchen', this)">
+                        <img src="images/kitchen-bath-1.png" class="thumb" onclick="fadeSwap('main-kitchen', this)">
+                        <img src="images/kitchen-bath-2.png" class="thumb" onclick="fadeSwap('main-kitchen', this)">
+                    </div>
+                </div>
+                <h3>Kitchen & Bath</h3>
+                <p>High-end finishes and functional design.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-gallery">
+                    <img src="images/commercial-mason-1.png" id="main-mason" alt="Masonry" class="service-img main">
+                    <div class="thumb-grid">
+                        <img src="images/commercial-mason-1.png" class="thumb active-thumb" onclick="fadeSwap('main-mason', this)">
+                        <img src="images/commercial-mason-2.png" class="thumb" onclick="fadeSwap('main-mason', this)">
+                        <img src="images/commercial-mason-3.png" class="thumb" onclick="fadeSwap('main-mason', this)">
+                    </div>
+                </div>
+                <h3>Commercial Masonry</h3>
+                <p>Reliable, structural brick and stone work.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="quote">
+        <div class="contact-container">
+            <h2>Get in Touch</h2>
+            <p>Tell us about your project and we’ll get back to you within 24 hours.</p>
+            <form class="quote-form" action="https://formspree.io/f/your@email.com" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="tel" name="phone" placeholder="Phone Number">
+                
+                <div class="form-row">
+                    <select name="project-type" required>
+                        <option value="" disabled selected>Project Type...</option>
+                        <option value="new-build">New Build</option>
+                        <option value="remodel">Remodel</option>
+                        <option value="contracts-offers">Contracts/Offers</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <select name="budget" required>
+                        <option value="" disabled selected>Estimated Budget...</option>
+                        <option value="under-10k">Under £10k</option>
+                        <option value="10k-50k">£10k - £50k</option>
+                        <option value="50k-150k">£50k - £150k</option>
+                        <option value="150k-plus">£150k+</option>
+                    </select>
+                </div>
+                
+                <textarea name="message" placeholder="Tell us more about your project or enquiry..." rows="5" required></textarea>
+                <button type="submit" class="cta-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Taylor Group Construction | Licensed, Bonded, & Insured</p>
+    <a href="#top" class="back-to-top">Back to Top ↑</a>
+</footer>
+
+<script>
+    function setupContactButton() {
+        const btn = document.getElementById('dual-contact-btn');
+        const text = document.getElementById('contact-text');
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (!isMobile) {
+            btn.href = "https://wa.me/441234567890?text=I'm%20interested%20in%20a%20quote";
+            text.innerHTML = "💬 WhatsApp Us";
+            btn.style.backgroundColor = "#25D366"; 
+        }
+    }
+
+    function fadeSwap(mainImgId, clickedThumb) {
+        const mainImg = document.getElementById(mainImgId);
+        if (mainImg.src === clickedThumb.src) return;
+
+        mainImg.style.opacity = '0';
+        const parentGrid = clickedThumb.parentElement;
+        const siblingThumbs = parentGrid.getElementsByClassName('thumb');
+
+        for (let t of siblingThumbs) {
+            t.classList.remove('active-thumb');
+        }
+        clickedThumb.classList.add('active-thumb');
+
+        setTimeout(() => {
+            mainImg.src = clickedThumb.src;
+            mainImg.style.opacity = '1';
+        }, 300);
+    }
+
+    window.onload = setupContactButton;
+</script>
+
+</body>
+</html>
