@@ -85,7 +85,7 @@
             <h2>Get in Touch</h2>
             <p id="form-status">Tell us about your project and we’ll get back to you within 24 hours.</p>
             
-            <form class="quote-form" id="lead-form" action="https://script.google.com/macros/s/AKfycby78KjQ9S8wO3Rw5Bl8MI9WFS_OmO_JVEcpmUaqXeRt_oj0Atp370yanbRlvKhIPVQ5/exec" method="POST">
+            <form class="quote-form" id="lead-form" action="https://script.google.com/macros/s/AKfycbyghPEyHulJnj9-uthyKEosAJmgMCCvaZb1VvSKJRZ2Q6zZzTfW_A3L6YN56Tf1u_RK/exec" method="POST">
                 
                 <input type="text" name="website" style="display:none !important" tabindex="-1" autocomplete="off">
                 
@@ -124,12 +124,10 @@
 </footer>
 
 <script>
-    // 1. Dual Contact Button Setup
     function setupContactButton() {
         const btn = document.getElementById('dual-contact-btn');
         const text = document.getElementById('contact-text');
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
         if (!isMobile) {
             btn.href = "https://wa.me/441234567890?text=I'm%20interested%20in%20a%20quote";
             text.innerHTML = "💬 WhatsApp Us";
@@ -137,7 +135,6 @@
         }
     }
 
-    // 2. Project Gallery Logic
     function fadeSwap(mainImgId, clickedThumb) {
         const mainImg = document.getElementById(mainImgId);
         if (mainImg.src === clickedThumb.src) return;
@@ -152,32 +149,38 @@
         }, 300);
     }
 
-    // 3. GOOGLE SHEETS "STAY ON PAGE" SUBMISSION
+    // UPDATED SUBMISSION LOGIC
     const form = document.getElementById('lead-form');
-    const btn = document.getElementById('submit-btn');
-    const status = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
+    const statusText = document.getElementById('form-status');
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Stop the page from redirecting
-        btn.disabled = true;
-        btn.innerHTML = "Sending...";
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "Sending...";
 
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
+        // Create a URL-encoded string instead of FormData for better Apps Script compatibility
+        const scriptURL = form.action;
+        const formData = new URLSearchParams(new FormData(form)).toString();
+
+        fetch(scriptURL, {
             method: 'POST',
-            body: formData,
-            mode: 'no-cors' // Allows cross-origin submission to Google
-        }).then(() => {
-            // Success State
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formData
+        })
+        .then(() => {
+            // Because of 'no-cors', we assume success if the request finishes
             form.style.display = 'none';
-            status.innerHTML = "<strong>Message Sent!</strong> We will be in touch shortly.";
-            status.style.color = "#25D366";
-            status.style.fontSize = "1.2rem";
-        }).catch(err => {
-            btn.disabled = false;
-            btn.innerHTML = "Try Again";
-            alert("Something went wrong. Please try again or call us directly.");
+            statusText.innerHTML = "<strong>Message Sent!</strong> We will be in touch shortly.";
+            statusText.style.color = "#25D366";
+            statusText.style.fontSize = "1.2rem";
+        })
+        .catch(err => {
+            console.error('Error!', err.message);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "Try Again";
+            alert("Submission error. Please check your internet or call us directly.");
         });
     });
 
