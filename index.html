@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<link rel="icon" type="image/jpg" href="favicon.jpeg">
+    <link rel="icon" type="image/jpeg" href="favicon.jpeg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taylor Group Construction | Quality You Can Trust</title>
@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="style.css">
     <style>
         html { scroll-behavior: smooth; }
+        /* Added a simple fade for the success message */
+        .success-style { background-color: #25D366 !important; border: none; }
     </style>
 </head>
 <body id="top">
@@ -81,8 +83,12 @@
     <section class="contact-section" id="quote">
         <div class="contact-container">
             <h2>Get in Touch</h2>
-            <p>Tell us about your project and we’ll get back to you within 24 hours.</p>
-            <form class="quote-form" action="https://formspree.io/f/your@email.com" method="POST">
+            <p id="form-status">Tell us about your project and we’ll get back to you within 24 hours.</p>
+            
+            <form class="quote-form" id="lead-form" action="https://script.google.com/macros/s/AKfycby78KjQ9S8wO3Rw5Bl8MI9WFS_OmO_JVEcpmUaqXeRt_oj0Atp370yanbRlvKhIPVQ5/exec" method="POST">
+                
+                <input type="text" name="website" style="display:none !important" tabindex="-1" autocomplete="off">
+                
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Email Address" required>
                 <input type="tel" name="phone" placeholder="Phone Number">
@@ -106,7 +112,7 @@
                 </div>
                 
                 <textarea name="message" placeholder="Tell us more about your project or enquiry..." rows="5" required></textarea>
-                <button type="submit" class="cta-btn">Send Message</button>
+                <button type="submit" id="submit-btn" class="cta-btn">Send Message</button>
             </form>
         </div>
     </section>
@@ -118,6 +124,7 @@
 </footer>
 
 <script>
+    // 1. Dual Contact Button Setup
     function setupContactButton() {
         const btn = document.getElementById('dual-contact-btn');
         const text = document.getElementById('contact-text');
@@ -130,24 +137,49 @@
         }
     }
 
+    // 2. Project Gallery Logic
     function fadeSwap(mainImgId, clickedThumb) {
         const mainImg = document.getElementById(mainImgId);
         if (mainImg.src === clickedThumb.src) return;
-
         mainImg.style.opacity = '0';
         const parentGrid = clickedThumb.parentElement;
         const siblingThumbs = parentGrid.getElementsByClassName('thumb');
-
-        for (let t of siblingThumbs) {
-            t.classList.remove('active-thumb');
-        }
+        for (let t of siblingThumbs) { t.classList.remove('active-thumb'); }
         clickedThumb.classList.add('active-thumb');
-
         setTimeout(() => {
             mainImg.src = clickedThumb.src;
             mainImg.style.opacity = '1';
         }, 300);
     }
+
+    // 3. GOOGLE SHEETS "STAY ON PAGE" SUBMISSION
+    const form = document.getElementById('lead-form');
+    const btn = document.getElementById('submit-btn');
+    const status = document.getElementById('form-status');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Stop the page from redirecting
+        btn.disabled = true;
+        btn.innerHTML = "Sending...";
+
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors' // Allows cross-origin submission to Google
+        }).then(() => {
+            // Success State
+            form.style.display = 'none';
+            status.innerHTML = "<strong>Message Sent!</strong> We will be in touch shortly.";
+            status.style.color = "#25D366";
+            status.style.fontSize = "1.2rem";
+        }).catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = "Try Again";
+            alert("Something went wrong. Please try again or call us directly.");
+        });
+    });
 
     window.onload = setupContactButton;
 </script>
